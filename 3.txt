@@ -1,0 +1,79 @@
+ /////////// 
+                                                   Для открытия файла
+OpenFileDialog Open = new OpenFileDialog();
+            Open.Filter = " (*.txt)|*.txt|All files (*.*)|*.*";
+            if (Open.ShowDialog() != DialogResult.Cancel)
+            {
+               FileStream fs = new FileStream(Open.FileName, FileMode.Open, FileAccess.Read);
+                string[] str = File.ReadAllLines(Open.FileName);
+                for (int i = 0; i < str.Length; i++) { listBox1.Items.Add(str[i]);}
+
+            }
+
+///////////
+                                   Сортировка по длине слова
+ public void LeinghtSortUp(ComboBox comboBox, ListBox listBox)
+        {
+            List<string> items = new List<string>();
+            foreach (string i in listBox.Items)
+            {
+                items.Add(i);
+            }
+            items.Sort((a, b) => a.Length.CompareTo(b.Length));
+            listBox.Items.Clear();
+            foreach (string i in items)
+            {
+                listBox.Items.Add(i);
+            }
+           
+        }
+//////////
+                        Сортировка по алфавиту
+ List<string> items = new List<string>();
+                foreach (string i in listBox.Items)
+                {
+                    items.Add(i);
+                }
+                items.Sort();
+                listBox.Items.Clear();
+                foreach (string i in items)
+                {
+                    listBox.Items.Add(i);
+                }
+/////////
+                      Сохранение
+SaveFileDialog save = new SaveFileDialog();
+            save.Filter = "Text documents (.txt)|*.txt";
+ 
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                StreamWriter w = new StreamWriter(save.FileName);
+ 
+                foreach (var item in listBox1.Items)
+                    w.WriteLine(item.ToString());
+                          
+                w.Close();
+////////////
+Form2 fr = new Form2();
+            fr.Owner = this;
+            fr.ShowDialog();
+
+Form1 form1= this.Owner as Form1;
+            string strin = textBox1.Text;
+            form1.listBox1.Items.Add(strin);
+
+/////////// 
+                       Поиск
+listBox1.Items.Clear();
+            string[] str = File.ReadAllLines(path);
+            string p = textBox1.Text;
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (str[i].Contains(p))
+                {
+                    listBox1.Items.Add(str[i]);
+
+                }
+                
+            }
+//////////
